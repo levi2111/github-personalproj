@@ -66,15 +66,14 @@
             try{
                 const response = await validateCredentials(username, password);
                 if (response.success){
-                    console.log("validated credentials")
+                    console.log("validated credentials");
+                    window.location.href = "index.html";
                 } else {
                     console.log("couldnt validate credentials")
                 }
             } catch (error) {
                 console.error("An error occurred:", error);
             }
-            
-            window.location.href = "index.html"
         }
 
         document.getElementById('login-button').addEventListener('click', validateForm);
