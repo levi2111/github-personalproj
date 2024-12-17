@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <title>Hermes</title>
+    <link rel="stylesheet" href="styles.css">
+    <meta
+      name="description"
+      content="Web site created using create-react-app"
+    />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+    <!--
+      manifest.json provides metadata used when your web app is installed on a
+      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
+    -->
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <!--
+      Notice the use of %PUBLIC_URL% in the tags above.
+      It will be replaced with the URL of the `public` folder during the build.
+      Only files inside the `public` folder can be referenced from the HTML.
+
+      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
+      work correctly both with client-side routing and a non-root public URL.
+      Learn how to configure a non-root public URL by running `npm run build`.
+    -->
+    <title>Log in</title>
+    <script type="module" src="backend/auth.js"></script>
+</head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <main>
+        <section>
+            <h1>Login</h1>
+            <form id="login-form" action="your-server-file.php" method="POST">
+                <div>
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div>
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button type="button" id="login-button">Login</button>
+            </form>
+        </section>
+    </main>
+
+    <script type="module">
+        import * as argon2 from 'argon2-browser';
+
+        import { validateCredentials, test } from 'backend/auth.js';
+        console.log(test())
+        // ya
+
+        async function validateForm() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+
+            if (!username || !password) {
+                alert('Both fields are required!');
+                return;
+            }
+
+            try{
+                const response = await validateCredentials(username, password);
+                alert(response)
+                if (response.success){
+                    alert("success")
+                } else {
+                    alert(":(")
+                }
+            } catch (error) {
+                console.error("An error occurred:", error);
+            }
+            
+            //window.location.href = "index.html"
+            alert('Form submitted successfully!');
+            // Add further processing here, such as sending data to the server
+
+            document.getElementById('login-button').addEventListener('click', validateForm);
+        }
+    </script>
+    <!--
+      This HTML file is a template.
+      If you open it directly in the browser, you will see an empty page.
+
+      You can add webfonts, meta tags, or analytics to this file.
+      The build step will place the bundled scripts into the <body> tag.
+
+      To begin the development, run `npm start` or `yarn start`.
+      To create a production bundle, use `npm run build` or `yarn build`.
+    -->
+  </body>
+</html>
