@@ -1,5 +1,4 @@
 import * as argon2 from 'https://cdn.jsdelivr.net/npm/argon2-browser@latest/argon2.min.js';
-import * as argon2 from 'argon2-browser';
 
 
 export async function validateCredentials(username, password) {
